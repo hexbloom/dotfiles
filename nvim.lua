@@ -61,14 +61,18 @@ require('lazy').setup({
                 section_separators = '',
             },
             sections = {
-                lualine_b = { '' },
+                lualine_b = { 'filename' },
+                lualine_c = { 'diagnostics' },
                 lualine_x = { 'branch' },
-                lualine_y = { 'diagnostics' },
+                lualine_y = {},
             },
             inactive_sections = {
                 lualine_x = { '' },
             },
             extensions = {'neo-tree'},
+        },
+        dependencies = {
+            'phha/zenburn.nvim',
         },
     },
 
@@ -167,6 +171,9 @@ vim.o.shiftwidth = 4
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 
+-- Hide the command line
+vim.o.cmdheight = 0
+
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
@@ -192,6 +199,8 @@ vim.keymap.set('i', '<C-s>', "<ESC>:wa<cr>")
 vim.keymap.set('n', '<leader>b', ":!zig build<cr>")
 vim.keymap.set('n', '<leader>p', ":!zig build run<cr>")
 vim.keymap.set('n', '<leader>P', ":!zig build run -Doptimize=ReleaseFast<cr>")
+
+vim.keymap.set('n', '<leader>K', ":lua vim.diagnostic.open_float()<cr>")
 
 -- Tab autocompletion in insert mode
 vim.api.nvim_exec2([[
