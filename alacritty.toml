@@ -1,0 +1,8 @@
+shell = "cmd"
+
+[window]
+dimensions = { columns = 100, lines = 30 }
+
+[font]
+normal = { family = "RobotoMono Nerd Font", style = "Regular" }
+size = 14
