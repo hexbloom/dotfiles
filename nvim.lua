@@ -35,7 +35,7 @@ require('lazy').setup({
 
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     {
-    'lewis6991/gitsigns.nvim',
+        'lewis6991/gitsigns.nvim',
         opts = {
             signs = {
                 add = { text = '+' },
@@ -48,7 +48,10 @@ require('lazy').setup({
     },
 
     -- Color scheme
-    { 'phha/zenburn.nvim', opts = {} },
+    {
+        'hexbloom/zenburn.nvim',
+        branch = 'semantic-highlight-support',
+    },
 
     -- Set lualine as statusline
     {
@@ -56,7 +59,7 @@ require('lazy').setup({
         opts = {
             options = {
                 icons_enabled = false,
-                theme = 'moonfly',
+                theme = 'zenburn',
                 component_separators = '|',
                 section_separators = '',
             },
@@ -69,10 +72,13 @@ require('lazy').setup({
             inactive_sections = {
                 lualine_x = { '' },
             },
-            extensions = {'neo-tree'},
+            extensions = { 'neo-tree' },
         },
         dependencies = {
-            'phha/zenburn.nvim',
+            {
+                'hexbloom/zenburn.nvim',
+                branch = 'semantic-highlight-support'
+            },
         },
     },
 
@@ -95,15 +101,6 @@ require('lazy').setup({
         },
     },
 
-    -- Highlight, edit, and navigate code
-    {
-        'nvim-treesitter/nvim-treesitter',
-        dependencies = {
-            'nvim-treesitter/nvim-treesitter-textobjects',
-        },
-        build = ':TSUpdate',
-    },
-
     -- File tree
     {
         "nvim-neo-tree/neo-tree.nvim",
@@ -124,6 +121,9 @@ require('lazy').setup({
 }, {})
 
 -- [[ Setting options ]]
+
+-- Set color scheme
+vim.cmd("colorscheme zenburn")
 
 -- Set highlight on search
 vim.o.hlsearch = false
@@ -190,9 +190,9 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Common operations
-vim.keymap.set('n', '<leader>z', ":e $myvimrc<cr>")
-vim.keymap.set('n', '<leader>q', ":qa<cr>")
-vim.keymap.set('n', '<C-s>', ":wa<cr>")
+vim.keymap.set('n', '<leader>z', ":e $myvimrc<cr>", { desc = 'Open NeoVim config file' })
+vim.keymap.set('n', '<leader>q', ":qa<cr>", { desc = 'Quit NeoVim' })
+vim.keymap.set('n', '<C-s>', ":wa<cr>", { desc = 'Save all' })
 vim.keymap.set('i', '<C-s>', "<ESC>:wa<cr>")
 
 -- Custom shell commands
@@ -200,7 +200,7 @@ vim.keymap.set('n', '<leader>b', ":!zig build<cr>")
 vim.keymap.set('n', '<leader>p', ":!zig build run<cr>")
 vim.keymap.set('n', '<leader>P', ":!zig build run -Doptimize=ReleaseFast<cr>")
 
-vim.keymap.set('n', '<leader>K', ":lua vim.diagnostic.open_float()<cr>")
+vim.keymap.set('n', '<leader>K', ":lua vim.diagnostic.open_float()<cr>", { desc = "Open diagnostics for current line" })
 
 -- Tab autocompletion in insert mode
 vim.api.nvim_exec2([[
@@ -236,27 +236,9 @@ vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { d
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 vim.keymap.set('n', '<leader>/', require('telescope.builtin').current_buffer_fuzzy_find, { desc = '[/] Fuzzily search in current buffer' })
 vim.keymap.set('n', '<leader>t', require('telescope.builtin').builtin, { desc = 'Search Select [T]elescope' })
-vim.keymap.set('n', '<leader>f', require('telescope.builtin').find_files, { desc = 'Search [F]iles' })
-vim.keymap.set('n', '<leader>g', require('telescope.builtin').git_files, { desc = 'Search [F]iles' })
+vim.keymap.set('n', '<leader>F', require('telescope.builtin').find_files, { desc = 'Search all [F]iles' })
+vim.keymap.set('n', '<leader>f', require('telescope.builtin').git_files, { desc = 'Search Git [f]iles' })
 vim.keymap.set('n', '<leader>s', require('telescope.builtin').live_grep, { desc = '[S]earch by Grep' })
-
--- [[ Configure Treesitter ]]
--- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
-vim.defer_fn(function()
-    require('nvim-treesitter.configs').setup {
-        ensure_installed = { 'c', 'cpp', 'vimdoc', 'vim' },
-
-        -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-        auto_install = false,
-        -- Install languages synchronously (only applied to `ensure_installed`)
-        sync_install = false,
-        -- List of parsers to ignore installing
-        ignore_install = {},
-        modules = {},
-        highlight = { enable = true },
-        indent = { enable = true },
-    }
-end, 0)
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
