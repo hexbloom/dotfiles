@@ -20,7 +20,7 @@ require('lazy').setup({
     'tpope/vim-fugitive',
     'tpope/vim-rhubarb',
 
-    -- LSP Configuration & Plugins
+    -- LSP Configuration
     'neovim/nvim-lspconfig',
 
     -- Automatically add completing braces
@@ -208,21 +208,6 @@ vim.api.nvim_exec2([[
     inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 ]], {})
 vim.keymap.set('i', '<S-tab>', "<C-p>")
-
--- [[ Configure Telescope ]]
-require('telescope').setup {
-    defaults = {
-        mappings = {
-            i = {
-                ['<C-u>'] = false,
-                ['<C-d>'] = false,
-            },
-        },
-    },
-}
-
--- Enable telescope fzf native, if installed
-pcall(require('telescope').load_extension, 'fzf')
 
 -- Telescope remaps
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
