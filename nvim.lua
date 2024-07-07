@@ -49,8 +49,10 @@ require('lazy').setup({
 
     -- Color scheme
     {
-        'hexbloom/zenburn.nvim',
-        branch = 'semantic-highlight-support',
+        'zenbones-theme/zenbones.nvim',
+        dependencies = {
+            'rktjmp/lush.nvim',
+        },
     },
 
     -- Set lualine as statusline
@@ -59,7 +61,6 @@ require('lazy').setup({
         opts = {
             options = {
                 icons_enabled = false,
-                theme = 'zenburn',
                 component_separators = '|',
                 section_separators = '',
             },
@@ -76,8 +77,10 @@ require('lazy').setup({
         },
         dependencies = {
             {
-                'hexbloom/zenburn.nvim',
-                branch = 'semantic-highlight-support'
+                'zenbones-theme/zenbones.nvim',
+                dependencies = {
+                    'rktjmp/lush.nvim',
+                },
             },
         },
     },
@@ -116,7 +119,8 @@ require('lazy').setup({
 -- [[ Setting options ]]
 
 -- Set color scheme
-vim.cmd("colorscheme zenburn")
+vim.g.zenbones = { darkness = 'warm' }
+vim.cmd("colorscheme zenbones")
 
 -- Set highlight on search
 vim.o.hlsearch = false
