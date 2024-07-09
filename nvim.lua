@@ -101,6 +101,9 @@ require('lazy').setup({
             'nvim-tree/nvim-web-devicons',
         },
         opts = {
+            sort = {
+                sorter = "case_sensitive",
+            },
             view = {
                 width = 26,
             },
@@ -176,8 +179,8 @@ vim.o.shiftwidth = 4
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 
--- Hide the command line
-vim.o.cmdheight = 0
+-- Hide the command history
+vim.o.showcmd = false
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
