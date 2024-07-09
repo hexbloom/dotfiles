@@ -1,6 +1,9 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- https://github.com/folke/lazy.nvim
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -49,10 +52,10 @@ require('lazy').setup({
 
     -- Color scheme
     {
-        'zenbones-theme/zenbones.nvim',
-        dependencies = {
-            'rktjmp/lush.nvim',
-        },
+        'hexbloom/zenburn.nvim',
+        branch = 'semantic-highlight-support',
+        lazy = false,
+        priority = 1000,
     },
 
     -- Set lualine as statusline
@@ -63,6 +66,7 @@ require('lazy').setup({
                 icons_enabled = false,
                 component_separators = '|',
                 section_separators = '',
+                theme = 'zenburn',
             },
             sections = {
                 lualine_b = { 'filename' },
@@ -73,15 +77,7 @@ require('lazy').setup({
             inactive_sections = {
                 lualine_x = { '' },
             },
-            extensions = { 'neo-tree' },
-        },
-        dependencies = {
-            {
-                'zenbones-theme/zenbones.nvim',
-                dependencies = {
-                    'rktjmp/lush.nvim',
-                },
-            },
+            extensions = { 'nvim-tree' },
         },
     },
 
@@ -99,28 +95,40 @@ require('lazy').setup({
 
     -- File tree
     {
-        "nvim-neo-tree/neo-tree.nvim",
-        branch = "v3.x",
+        'nvim-tree/nvim-tree.lua',
+        lazy = false,
         dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons",
-            "MunifTanjim/nui.nvim",
+            'nvim-tree/nvim-web-devicons',
         },
-        opts = { 
-            filesystem = {
-                filtered_items = { show_hidden_count = false },
+        opts = {
+            view = {
+                width = 26,
             },
-            hide_root_node = true,
-            window = { width = 26 },
+            renderer = {
+                root_folder_label = false,
+                highlight_git = true,
+                indent_width = 1,
+                icons = {
+                    glyphs = {
+                        git = {
+                            staged = "",
+                            unstaged = "󰑊",
+                            untracked = "󰄱",
+                        },
+                    },
+                },
+            },
+            filters = {
+                custom = { "^.git$" },
+            },
         },
-    },
+    }
 }, {})
 
 -- [[ Setting options ]]
 
 -- Set color scheme
-vim.g.zenbones = { darkness = 'warm' }
-vim.cmd("colorscheme zenbones")
+vim.cmd("colorscheme zenburn")
 
 -- Set highlight on search
 vim.o.hlsearch = false
