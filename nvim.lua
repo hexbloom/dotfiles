@@ -37,18 +37,7 @@ require('lazy').setup({
     { 'folke/which-key.nvim', opts = {} },
 
     -- Adds git related signs to the gutter, as well as utilities for managing changes
-    {
-        'lewis6991/gitsigns.nvim',
-        opts = {
-            signs = {
-                add = { text = '+' },
-                change = { text = '~' },
-                delete = { text = '_' },
-                topdelete = { text = '‾' },
-                changedelete = { text = '~' },
-            },
-        },
-    },
+    { 'lewis6991/gitsigns.nvim', opts = {} },
 
     -- Color scheme
     {
@@ -187,6 +176,9 @@ vim.o.completeopt = 'menuone,noselect'
 
 -- RGB colors in terminal
 vim.o.termguicolors = true
+
+-- Show empty space instead of ~ at the end of a buffer
+vim.o.fillchars = 'eob: '
 
 -- [[ Basic Keymaps ]]
 
