@@ -194,13 +194,11 @@ vim.keymap.set('n', '<leader>z', ":e $myvimrc<cr>", { desc = 'Open NeoVim config
 vim.keymap.set('n', '<leader>q', ":qa<cr>", { desc = 'Quit NeoVim' })
 vim.keymap.set('n', '<C-s>', ":wa<cr>", { desc = 'Save all' })
 vim.keymap.set('i', '<C-s>', "<ESC>:wa<cr>")
+vim.keymap.set('n', '<leader>K', ":lua vim.diagnostic.open_float()<cr>", { desc = "Open diagnostics for current line" })
 
 -- Custom shell commands
 vim.keymap.set('n', '<leader>b', ":!zig build<cr>")
 vim.keymap.set('n', '<leader>p', ":!zig build run<cr>")
-vim.keymap.set('n', '<leader>P', ":!zig build run -Doptimize=ReleaseFast<cr>")
-
-vim.keymap.set('n', '<leader>K', ":lua vim.diagnostic.open_float()<cr>", { desc = "Open diagnostics for current line" })
 
 -- Tab autocompletion in insert mode
 vim.api.nvim_exec2([[
