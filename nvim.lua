@@ -76,7 +76,6 @@ require('lazy').setup({
     -- Fuzzy Finder (files, lsp, etc)
     {
         'nvim-telescope/telescope.nvim',
-        tag = '0.1.8',
         dependencies = {
             'nvim-lua/plenary.nvim',
         },
@@ -191,7 +190,7 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Common operations
-vim.keymap.set('n', '<leader>z', ":e $myvimrc<cr>", { desc = 'Open NeoVim config file' })
+vim.keymap.set('n', '<leader>z', ":e $MYVIMRC<cr>", { desc = 'Open NeoVim config file' })
 vim.keymap.set('n', '<leader>q', ":qa<cr>", { desc = 'Quit NeoVim' })
 vim.keymap.set('n', '<C-s>', ":wa<cr>", { desc = 'Save all' })
 vim.keymap.set('i', '<C-s>', "<ESC>:wa<cr>")
