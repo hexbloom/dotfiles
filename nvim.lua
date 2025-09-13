@@ -244,6 +244,14 @@ local on_attach = function(_, bufnr)
     nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
     nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
     nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+
+    -- format on save
+    vim.api.nvim_create_autocmd("BufWritePre", {
+        buffer = bufnr,
+        callback = function()
+            vim.lsp.buf.format { async = false }
+        end,
+    })
 end
 
 -- LSP clients
@@ -260,5 +268,3 @@ lspconfig.zls.setup {
     cmd = { 'zls' },
 }
 
--- Fixes an issue with zls opening new buffer on save
-vim.g.zig_fmt_parse_errors = 0
