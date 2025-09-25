@@ -121,6 +121,10 @@ require('lazy').setup({
 -- Set color scheme
 vim.cmd("colorscheme zenburn")
 
+-- Javascript highlight customization
+vim.cmd("hi link javaScriptGlobal NONE")
+vim.cmd("hi link javaScriptMember NONE")
+
 -- Set highlight on search
 vim.o.hlsearch = false
 
